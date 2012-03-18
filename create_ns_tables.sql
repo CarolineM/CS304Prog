@@ -1,10 +1,9 @@
-DROP TABLE noteshare_user;
-DROP TABLE document;
 DROP TABLE comment_with_doc;
-DROP TABLE comment_with_course;
-DROP TABLE course_is_in;
 DROP TABLE ns_comment;
+DROP TABLE document;
+DROP TABLE course_is_in;
 DROP TABLE term;
+DROP TABLE noteshare_user;
 
 CREATE TABLE noteshare_user
 	(username VARCHAR(40) NOT NULL, 
