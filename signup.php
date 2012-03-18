@@ -4,7 +4,7 @@
     <div class="container">
             <h1>Sign Up</h1>
             <hr/>
-            <form method="POST" action="signupscript.php">
+            <form method="POST" action="insert_user.php">
               <!--refresh page when submit-->
               <p><h3>Username</h3><input type="text" name="username" size="40"/></p>
               <p><h3>Email</h3><input type="text" name="email" size="40"/></p>
@@ -20,7 +20,7 @@
                     </td>    
                 </tr>    
               </table>
-              <p><input type="submit" value="submit" name="insertsubmit"></p>
+              <p><input class="input.btn.primary" type="submit" value="submit" name="insertsubmit"></p>
            </form>
     </div> <!-- /container -->
 

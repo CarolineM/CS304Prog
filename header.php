@@ -49,7 +49,6 @@
               <li><a href="settings.php">Settings</a></li>
               <li><a href="comments.php">Comments</a></li>
               <li><a href="doc_upload.php">Document Upload</a></li>
-              <li><a href="login.php">SignUp / SignIn</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
