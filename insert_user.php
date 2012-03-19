@@ -51,7 +51,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
   
   OCICommit($db_conn); 
   OCILogoff($db_conn);
-
+  header('Location: noteshare.php');
 
 }
 else {

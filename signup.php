@@ -1,5 +1,5 @@
 
-<?php include("header.php"); ?>
+<?php include("nolinkheader.php"); ?>
 
     <div class="container">
             <h1>Sign Up</h1>
@@ -20,8 +20,21 @@
                     </td>    
                 </tr>    
               </table>
-              <p><input class="input.btn.primary" type="submit" value="submit" name="insertsubmit"></p>
-           </form>
+              <table>
+                <tr>
+                    <td>
+                            <input class="btn-large" type="submit" value="submit" name="insertuser" style="margin-right:30px;"/>
+                </form>
+                    </td>
+                    <td>
+                        <br/>
+                        <form method="POST" action="login.php">
+                        <input class="btn-large" type="submit" value="cancel" name="cancelnewacct" style="margin-left:30px;"/>
+                        </form>
+                    </td>
+                </tr>
+              </table>
+    
     </div> <!-- /container -->
 
 <?php include("footer.php"); ?>
