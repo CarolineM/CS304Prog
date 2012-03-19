@@ -1,15 +1,13 @@
 <?php
-
+    session_start();
 if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
-    echo "connected to database<br/>";
 
    $password = $_POST['password'];
    if (is_numeric($password)) {
         $password = strval($password);
    }
 
-   $cmdstr = "select username from noteshare_user where email = '$_POST[email]' and password = '$password'";
-   echo $cmdstr . PHP_EOL;
+   $cmdstr = "select username, email from noteshare_user where email = '$_POST[email]' and password = '$password'";
    
    $parsed = OCIParse($db_conn, $cmdstr);
    if (!$parsed){
@@ -30,9 +28,16 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     echo "invalid username or password";
    }
    else {
-    echo "hello " . $row[0];
     OCILogoff($db_conn);
-    header('Location: noteshare.php');
+    $_SESSION['username'] = $row[0];
+    $_SESSION['email'] = $row[1];
+    
+    if(isset($_SESSION['email'])){
+         header('Location: noteshare.php');   
+    }
+    else {
+    header("location:login.php");
+    }
    }
 
 

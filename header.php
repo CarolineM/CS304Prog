@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +32,6 @@
   </head>
 
   <body>
-
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -51,6 +53,9 @@
               <li><a href="doc_upload.php">Document Upload</a></li>
             </ul>
           </div><!--/.nav-collapse -->
+              <form method="POST" action="logout.php">
+                <button class="btn-small" type="submit" onclick="location.href ='logout.php';">Logout</button>
+              </form>
         </div>
       </div>
     </div>

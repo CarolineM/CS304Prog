@@ -1,6 +1,5 @@
 
 <?php include("nolinkheader.php"); ?>
-
     <div class="container">
       <div class="center">
       <h1>Sign In</h1>
