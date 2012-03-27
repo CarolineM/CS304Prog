@@ -48,14 +48,13 @@ session_start();
               <li><a href="search.php">Search</a></li>
               <li><a href="add_course.php">Add Course</a></li>
               <li><a href="document.php">Document</a></li>
-              <li><a href="settings.php">Settings</a></li>
               <li><a href="comments.php">Comments</a></li>
               <li><a href="doc_upload.php">Document Upload</a></li>
             </ul>
+            <p class="navbar-text pull-right">
+            Logged in as <a href="settings.php"><?php print(" " . $_SESSION['username']); ?></a>
+            |<a href="logout.php"> Logout</a></p>
           </div><!--/.nav-collapse -->
-              <form method="POST" action="logout.php">
-                <button class="btn-small" type="submit" onclick="location.href ='logout.php';">Logout</button>
-              </form>
         </div>
       </div>
     </div>
