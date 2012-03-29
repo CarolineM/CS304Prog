@@ -1,55 +1,62 @@
 
-<?php include("header.php"); ?>
 
-
-
-	
 	<div class="container">
-	
-	<?php
-	session_start();
-	?>
+	<p>Put header back when error stops!!!!!!!!</p>
 
 	<h1>Document page</h1>
-    <p>View a document, make comments, view comments on the document</p>
+	
+	<p>Select a Course<br>
+		<select name="document">
+		<option value="Option1" selected>CPSC 304</option>
+		<option value="Option2">CPSC 317</option>
+		<option value="Option3">CPSC 310</option>
+		<option value="Option4">CPSC 313</option>
+		</select>
+	</p>
 	  
 	<p>Select a Document<br>
-		<select name="Document: ">
-		<option value="What" selected>Option 1</option>
-		<option value="in">Option 2</option>
-		<option value="the">Option 3</option>
-		<option value="f">Option 4</option>
+		<select name="document">
+		<option value="Option1" selected>Introduction to Database Systems</option>
+		<option value="Option2">doc2</option>
+		<option value="Option3">doc3</option>
+		<option value="Option4">doc4</option>
 		</select>
 	</p>
 	
-	<iframe src="http://docs.google.com/gview?url=http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf" style="width:1000px; height:500px;" frameborder="0"></iframe>
+	<iframe src="http://docs.google.com/gview?url=http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf" style="width:1000px; height:600px;" frameborder="0"></iframe>
 	
-	<h3> Comment on the document here (max 500 char)</h3>
-	<textarea name="comment">
-	</textarea>
+	<textarea name="comment" cols="80">Insert document comments here...</textarea> </br>
 	
-	<input type="button" onclick="" value="Submit Comment" />
+	<input type="button" onclick="<?php echo 'wurd'?>" value="Submit Comment"/>
 	
+	<br> haxorGuy - March 26, 2012 8:22 - These are old notes</br>
+	<br> haxorGirl - March 26, 2012 8:35 - No they aren't, I just posted them.</br>
 	
-	  
-	  <!-- 
-		Showing a pdf with php
-		http://googlesystem.blogspot.ca/2009/09/embeddable-google-document-viewer.html
-		
-		eg. (doc pdf var goes after url=)
-		
-	 
-		Make Comments Insert
-		var $comment = 'need comment function';
-		
+	 <!--	  
+	SUBMIT COMMENT
+	
+	TIMESTAMP		
 		var $timestamp = date(DATE_RFC822); example: 2005-08-15T15:52:01+00:00
 		date_format($timestamp, 'yyyy/mm/dd:hh:mi:ss'); 
 		
-		echo date(DATE_ATOM);
-		
+	SUBMIT COMMENT QUERY
 		insert into ns_comment
-		values(to_date($timestamp, 'yyyy/mm/dd:hh:mi:ss'), $comment, '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+			values(to_date($timestamp, 'yyyy/mm/dd:hh:mi:ss'), (comment from text area comment), '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+		
+		insert into comment_with_doc
+			values('222', '123');
+				
+		
+	RETRIEVE COMMENTS ON A PARTICULAR DOCUMENT
+		select text from ns_comment where comment_id = (select comment_id from comment_with_doc where document_id = (var for doc id here);
+	  
+	RETRIEVE COURSE NUMBERS FOR LIST
+		select course_num from course_is_in;
+		
+	RETRIEVE DOCUMENTS IN A COURSE(from list)
+		select document_id from document where course_num = (var from course number table);
 	  -->
+	  
 
     </div> <!-- /container -->
 	
