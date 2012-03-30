@@ -5,9 +5,9 @@
 		<table>
 		<tbody>
 		<tr>
-			<td>Course Name:</td>
+			<td>Course Number:</td>
 			<td>
-			<input type="text" /></td>
+			<input type="number" /></td>
 		</tr>
 		<tr>
 			<td>Course Department:</td>
