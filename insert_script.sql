@@ -7,16 +7,16 @@ insert into term
 values('W2', '2012'); 
 
 insert into course_is_in
-values('304', 'CPSC', 'UBC', 'W2', 2012);
+values('304', 'DATABAAASE', 'CPSC', 'UBC', 'W2', 2012);
 insert into course_is_in
-values('317', 'CPSC', 'UBC', 'W2', 2012);
+values('317', 'INTERNETS', 'CPSC', 'UBC', 'W2', 2012);
 insert into course_is_in
-values('310', 'CPSC', 'UBC', 'W2', 2012);
+values('310', 'WIZARD SCIENCE', 'CPSC', 'UBC', 'W2', 2012);
 
 insert into document 
-values (123, to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'),'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '317', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+values (123, 'My work', to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'),'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '317', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
 insert into document 
-values (126, to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'),'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '304', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+values (126, 'Awesome Doc', to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'),'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '304', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
 
 insert into ns_comment
 values(to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'), 'Why does this only let us do twitter-length messages?','225', 'userlady@gmail.com', '304', 'CPSC', 'UBC', 'W2' , '2012');
