@@ -16,9 +16,12 @@
 		<tbody>
 			<tr>
 				<td>link to document1</td>
+				<td>(2 comments)</td>
+				<td>Last comment posted March 9, 2012 10:11
 			</tr>
 			<tr>
 				<td>link to document2</td>
+				<td>(0 comments)</td>
 			</tr>
 		</tbody>
 		</table>
