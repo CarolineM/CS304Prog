@@ -1,37 +1,64 @@
+<?php
+	//include("header.php");
+	//global $db_conn = OCILogon("y8r7", "ora_a28438109", "ug");
+?>
 
 
 	<div class="container">
-	<p>Put header back when error stops!!!!!!!!</p>
 
 	<h1>Document page</h1>
 	
-	<p>Select a Course<br>
-		<select name="document">
-		<option value="Option1" selected>CPSC 304</option>
-		<option value="Option2">CPSC 317</option>
-		<option value="Option3">CPSC 310</option>
-		<option value="Option4">CPSC 313</option>
+	
+	
+	<p>1.) Select a Course<br>
+		<select name="course">
+		<?php
+		/*
+		if(!$db_conn){
+			$e = oci_error();
+			trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+		}
+		$query = oci_parse($db_conn, "SELECT course_num FROM course_is_in");
+		$i = 0;
+			
+		while($row = oci_fetch_array($query, OCI_NUM)
+		{
+			echo "<option value=Option". $i .">CPSC " . $row[$i] . "</option>";
+			$i++;
+		}*/		
+		?>
 		</select>
 	</p>
-	  
-	<p>Select a Document<br>
+	
+	<form method = "POST" action="document.php">  
+		Select a Document<br>
 		<select name="document">
-		<option value="Option1" selected>Introduction to Database Systems</option>
-		<option value="Option2">doc2</option>
-		<option value="Option3">doc3</option>
-		<option value="Option4">doc4</option>
+		
 		</select>
+		<input type="submit"/>
+	</form>
+		<?php
+		
+		if(!$db_conn){
+			
+		}
+		$query = oci_parse($db_conn, "select document_id from document where course_num =");
+		?>
 	</p>
+	
 	<input type="button" onclick="" value="Load Document"/>
 	
-	<iframe src="http://docs.google.com/gview?url=http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf" style="width:1000px; height:600px;" frameborder="0"></iframe>
+	<iframe src="http://docs.google.com/gview?url=http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf" style="width:1000px; height:600px;" 
+frameborder="0"></iframe>
 	
 	<textarea name="comment" cols="80">Insert document comments here...</textarea> </br>
 	
 	<input type="button" onclick="" value="Submit Comment"/>
 	
-	<br> haxorGuy - March 26, 2012 8:22 - These are old notes</br>
-	<br> haxorGirl - March 26, 2012 8:35 - No they aren't, I just posted them.</br>
+	
+	<br> welcome <?php echo $_POST["document"]; ?> .</br>
+	
+	<br> haxorGirl - March 26, 2012 8:35 - No they arent, I just posted them.</br>
 	
 	 <!--	  
 	SUBMIT COMMENT
@@ -42,7 +69,8 @@
 		
 	SUBMIT COMMENT QUERY
 		insert into ns_comment
-			values(to_date($timestamp, 'yyyy/mm/dd:hh:mi:ss'), (comment from text area comment), '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+			values(to_date($timestamp, 'yyyy/mm/dd:hh:mi:ss'), (comment from text area comment), '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', 
+'2012');
 		
 		insert into comment_with_doc
 			values('222', '123');
