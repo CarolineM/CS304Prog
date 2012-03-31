@@ -1,6 +1,6 @@
 <?php
     session_start();
-if ($db_conn=OCILogon("ora_y8r7", "a28438109", "ug")) {
+if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")){
 
    $password = $_POST['password'];
    if (is_numeric($password)) {
