@@ -15,35 +15,42 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")){
    $parsed = OCIParse($db_conn, $cmdstr);
    if (!$parsed){
       $e = OCIError($db_conn);  
-      echo htmlentities($e['message']); 
-      exit;
+       $_SESSION['pw_change_result'] = htmlentities($e['message']);
+      OCILogoff($db_conn); 
+      header('Location: settings.php'); 
+
    }
 
    $r=OCIExecute($parsed, OCI_DEFAULT); 
     if (!$r){
       $e = oci_error($parsed); 
-      echo htmlentities($e['message']);
-      exit;
+       $_SESSION['pw_change_result'] = htmlentities($e['message']);
+        OCILogoff($db_conn); 
+        header('Location: settings.php'); 
+
    }  
    
    $row = OCI_Fetch_Array($parsed, OCI_NUM);
    if (empty($row)) {
-    $_SESSION['pw_change_result'] = "invalid username or password";
+    $_SESSION['pw_change_result'] = "invalid password";
    }
    else {
     $cmdstr = "update noteshare_user set password = '$newpassword' where email = '$email'";
        $parsed = OCIParse($db_conn, $cmdstr);
         if (!$parsed){
         $e = OCIError($db_conn);  
-        echo htmlentities($e['message']); 
-        exit;
+         $_SESSION['pw_change_result'] = htmlentities($e['message']);
+        OCILogoff($db_conn); 
+        header('Location: settings.php'); 
+
         }
 
    $r=OCIExecute($parsed, OCI_DEFAULT); 
      if (!$r){
         $e = oci_error($parsed); 
-        echo htmlentities($e['message']);
-        exit;
+         $_SESSION['pw_change_result'] = htmlentities($e['message']);
+        OCILogoff($db_conn); 
+        header('Location: settings.php'); 
     }
     OCICommit($db_conn); 
     $cmdstr = "select username, email from noteshare_user where email = '$email' and password = '$newpassword'";
@@ -51,20 +58,24 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")){
    $parsed = OCIParse($db_conn, $cmdstr);
    if (!$parsed){
       $e = OCIError($db_conn);  
-      echo htmlentities($e['message']); 
-      exit;
+       $_SESSION['pw_change_result'] = htmlentities($e['message']);
+        OCILogoff($db_conn); 
+        header('Location: settings.php'); 
+
    }
 
    $r=OCIExecute($parsed, OCI_DEFAULT); 
     if (!$r){
       $e = oci_error($parsed); 
-      echo htmlentities($e['message']);
-      exit;
+       $_SESSION['pw_change_result'] = htmlentities($e['message']);
+           OCILogoff($db_conn); 
+        header('Location: settings.php'); 
+      
    }  
    
    $row = OCI_Fetch_Array($parsed, OCI_NUM);
    if (empty($row)) {
-    $_SESSION['pw_change_result'] = "fail :(";
+    $_SESSION['pw_change_result'] = "You have entered invalid data";
    }
     else {
     $_SESSION['pw_change_result'] = "Success!";

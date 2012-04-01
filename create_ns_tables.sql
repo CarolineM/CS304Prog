@@ -14,7 +14,6 @@ CREATE TABLE noteshare_user
         );
 GRANT SELECT ON noteshare_user TO PUBLIC;
 
-
 CREATE TABLE term(
 	semester VARCHAR(4) NOT NULL,
 	tyear NUMBER(4) NOT NULL,
@@ -43,10 +42,10 @@ CREATE TABLE document
 	institution CHAR(30) NOT NULL,
 	semester VARCHAR(4) NOT NULL,
 	tyear  NUMBER(4) NOT NULL,
-        email VARCHAR(40) NOT NULL,
+        email VARCHAR(40),
 	PRIMARY KEY (document_id),
         FOREIGN KEY (course_num, dept, semester, tyear, institution) REFERENCES course_is_in ON DELETE CASCADE,
-        FOREIGN KEY (email) REFERENCES noteshare_user ON DELETE CASCADE
+        FOREIGN KEY (email) REFERENCES noteshare_user ON DELETE SET NULL
         );
 GRANT SELECT ON document TO PUBLIC;
  
@@ -54,14 +53,14 @@ CREATE TABLE ns_comment
 	(comment_time TIMESTAMP default systimestamp NOT NULL,
 	text VARCHAR(2000) NOT NULL,
 	comment_id NUMBER(9),
-	email VARCHAR(40) NOT NULL,
+	email VARCHAR(40),
     	course_num NUMBER(3) NOT NULL,
 	dept VARCHAR(4) NOT NULL,
 	institution CHAR(30) NOT NULL,
 	semester VARCHAR(4) NOT NULL,
 	tyear  NUMBER(4) NOT NULL,
 	PRIMARY KEY (comment_id),
-	FOREIGN KEY (email) REFERENCES noteshare_user ON DELETE CASCADE,
+	FOREIGN KEY (email) REFERENCES noteshare_user ON DELETE SET NULL,
         FOREIGN KEY (course_num, dept, semester, tyear, institution) REFERENCES course_is_in ON DELETE CASCADE
 	);
 GRANT SELECT ON ns_comment TO PUBLIC;	

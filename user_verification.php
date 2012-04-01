@@ -25,7 +25,8 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")){
    
    $row = OCI_Fetch_Array($parsed, OCI_NUM);
    if (empty($row)) {
-    echo "invalid username or password";
+    $_SESSION['valid_res'] = "invalid username or password";
+    header("location:login.php");
    }
    else {
     OCILogoff($db_conn);
