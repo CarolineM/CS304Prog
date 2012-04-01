@@ -52,5 +52,10 @@ $db_conn = OCILogon("ora_n2f7", "a46785093", "ug");
 			echo "<br>No commands were committed.<br>";
 		}
 		OCILogoff($db_conn);
+	} else {
+		echo "cannot connect";
+		$e = OCI_Error(); // For OCILogon errors pass no handle
+		echo htmlentities($e['message']);
 	}
+}
 ?>
