@@ -6,7 +6,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     $docURL = $_POST['docURL'];
     $docName = $_POST['docname'];
     $docId = 1;
-    echo("WTF");
+
     
     //find largest document id
     $cmdstr = "select max(document_id) from document";
@@ -82,6 +82,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
    }
 
     OCILogoff($db_conn);
+    echo $_SESSION['insert_document_result'] = "Success!";
     header("location:doc_upload.php");
     
 }
