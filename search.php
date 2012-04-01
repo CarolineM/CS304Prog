@@ -7,6 +7,11 @@
 		<table>
 		<tbody>
 		<tr>
+			<td>Course Name:</td>
+			<td>
+			<input type="text" name="cname"></td>
+		</tr>
+		<tr>
 			<td>Course Number:</td>
 			<td>
 			<input type="number" name="cnumb"></td>
