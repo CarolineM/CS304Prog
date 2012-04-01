@@ -1,15 +1,43 @@
 <?php include("header.php"); ?>
 	<div class="container">
-		<?php
-			$cnum="304";
-			$cdept="CS";
-			$cinst="UBC";
-			$cterm="W2";
-			$cyear="2012";
-		?>
 		<h1>Course view</h1>
-		<p>This page should be access by querying a specific course. Show comments and make comments on this page. Links to documents.</p>
-		<h2><?php print($cdept); print($cnum); echo", "; print($cinst); echo", "; print($cterm); echo", "; print($cyear);?></h2>
+		          <form method="POST" action="insert_document.php">
+	  <label for="courseSelect">Select a course:</label>
+		<select name="courseSelect">
+<?php
+if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")){
+
+   $cmdstr = "select * from course_is_in";
+   
+   $parsed = OCIParse($db_conn, $cmdstr);
+   if (!$parsed){
+      $e = OCIError($db_conn);  
+      echo htmlentities($e['message']); 
+      exit;
+   }
+
+   $r=OCIExecute($parsed, OCI_DEFAULT); 
+    if (!$r){
+      $e = oci_error($parsed); 
+      echo htmlentities($e['message']);
+      exit;
+   }  
+  $i = 0;
+  while($row = OCI_Fetch_Array($parsed, OCI_NUM)) {
+        echo "<option value=" . $i . ">" . $row[3] . " " . $row[0] . " " . $row[1] . "</option>";
+        $_SESSION['course' . (string)$i] = $row;
+        $i++;
+  }
+       OCILogoff($db_conn);
+}        
+  else {
+  $e = OCIError();  
+  echo htmlentities($e['message']);
+}
+
+?>
+  </select>
+      </form>
 		
 		<h3>Documents</h3>
 		<table>
