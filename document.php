@@ -1,6 +1,14 @@
 <?php
 	include("header.php");
 	$db_conn = OCILogon("ora_y8r7", "a28438109", "ug");
+	if(!empty($_POST['doc_id'])){
+	$_SESSION['doc_id'] = $_POST['doc_id'];
+	}
+	if(!empty($_POST['cnum'])){
+	$_SESSION['cnum'] = $_POST['cnum'];
+	}
+	$email = $_SESSION['email'];
+	$comm_id = 1;
 ?>
 
 
@@ -10,7 +18,7 @@
 	
 	<p>Select a Course<br>
 		<form method = "POST" action = "document.php">
-		<select name="course">
+		<select name="cnum">
 		<?php
 			$query = "select course_num from course_is_in";
 		if(!$db_conn){
@@ -39,19 +47,17 @@
 			}	
 		}
 		
-		?>
-		</select>
-		<input type = "submit" value = "Filter Documents"/>
-		</form>
-	</p>
-
-		<?php
 		
-		$cnum = $_POST['course'];
-		if(!empty($cnum)){
+		echo "</select>";
+		echo "<input type = \"submit\" value = \"Filter Documents\"/>";
+		echo "</form>";
+		echo "</p>";
+
+		if(isset($_SESSION['cnum'])){
+			$cnum = $_SESSION['cnum'];
 			echo "<form method = \"POST\" action=\"document.php\">";
 			echo "Select a Document<br>";
-			echo "<select name=\"document\">";
+			echo "<select name=\"doc_id\">";
 			
 
 			
@@ -92,9 +98,10 @@
 
 
 
-	$docid = $_POST['document'];
-	
-	if (!empty($docid)){
+
+
+	if (isset($_SESSION['doc_id'])){
+		$docid = $_SESSION['doc_id'];
 		
 		$query3 = "select document_file from document where document_id = " . $docid;
 		$query4 = "select email, comment_time, text from ns_comment where comment_id in (select comment_id from comment_with_doc where document_id = " . $docid . ") order by comment_time";
@@ -122,7 +129,7 @@
 			}
 			while($row3 = oci_fetch_array($parsed3, OCI_NUM))
 			{
-				echo "<iframe src=\"http://docs.google.com/gview?url=" . $row3[0] . "\" style=\"width:1000px; height:600px;\" frameborder=\"0\"></iframe>";
+				echo "<iframe src=\"http://docs.google.com/gview?url=$row3[0]\" style=\"width:1000px; height:600px;\" frameborder=\"0\"></iframe>";
 			}	
 			
 			$parsed4 = oci_parse($db_conn, $query4);
@@ -149,7 +156,67 @@
 			echo "<textarea name=\"comment\" cols=\"80\">Insert document comments here...</textarea>";
 			echo "<input name= \"submit\" type = \"submit\" value = \"Post Comment\"/>";
 			echo "</form>";
+			
+			if (!empty($_POST['comment'])){
+			   //find largest comment id
+				$cmdstr = "select max(comment_id) from ns_comment";
+				
+				$parsed = OCIParse($db_conn, $cmdstr); // parse the statement
+			   if (!$parsed){
+				  $e = OCIError($db_conn);  
+				  echo htmlentities($e['message']);
+				  echo "exiting...";
+				  exit;
+			   }
+
+			   $r=OCIExecute($parsed, OCI_DEFAULT); 
+				if (!$r){
+				  $e = oci_error($parsed); 
+				  echo htmlentities($e['message']);
+				  echo "exiting...";
+				  exit;
+			   }
+			   
+				$row = OCI_Fetch_Array($parsed, OCI_NUM);
+				if (empty($row)) {
+				  $_SESSION['insert_document_result'] = "Internal server error";
+				  OCILogoff($db_conn);
+				  header('Location: noteshare.php');
+			   }
+			   else {
+				$comm_id += $row[0];
+				echo "<p>" . $comm_id . "</p>";
+			   }
+				$doc_comment = $_POST['comment'];
+				$query5 = "insert into ns_comment values (default, " . $doc_comment . ", '444', '" . $email .  "', '" . $_SESSION['cnum'] . "', 'CPSC', 'UBC', 'W2','2012')";
+				$query6 = "insert into comment_with_doc values ('444', '" . $_SESSION['doc_id'] . "')";
+				if(!$db_conn){
+					echo "<p>This doesn't work</p>";
+					$e5 = oci_error();
+					trigger_error(htmlentities($e5['message'], ENT_QUOTES), E_USER_ERROR);
+				}
+				else{
+					$parsed5 = oci_parse($db_conn, $query5);
+					$parsed6 = oci_parse($db_conn, $query6);
+					if (!$parsed5 && !$parsed6){
+						$e5 = OCIError($db_conn);  
+						echo htmlentities($e5['message']); 
+						exit;
+					}
+					
+					$r5=OCIExecute($parsed5, OCI_DEFAULT); 
+					$r6=OCIExecute($parsed6, OCI_DEFAULT); 
+					if (!$r5 && !$r6){
+						$e5 = oci_error($parsed5); 
+						echo htmlentities($e5['message']);
+						exit;
+					}
+
+				}
+							
+			}
 		}
+		
 		/*
 		$comm_submit = $_POST['submit'];
 			if($comm_submit){
