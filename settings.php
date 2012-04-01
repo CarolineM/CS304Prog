@@ -158,14 +158,15 @@
          <p><h3>Old Password</h3><input type="password" name="old_password" size="18"/></p>
          <p><h3>New Password</h3><input type="password" name="new_password" size="18"/></p>
          <p><input class="btn-large" type="submit" value="submit" name="insertsubmit"></p>
-    </form>
-  <?php
+           <?php
   if (isset($_SESSION['pw_change_result'])) {
     echo "<b>" . $_SESSION['pw_change_result'] . "</b>";
     unset($_SESSION['pw_change_result']);
   }
   ?>
+    </form>
   <button class="btn-large" type="submit" onclick="location.href ='deleteuser.php';">Delete Your Account :(</button>
+  
 
 
 
