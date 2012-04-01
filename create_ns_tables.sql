@@ -36,7 +36,7 @@ GRANT SELECT ON course_is_in TO PUBLIC;
 CREATE TABLE document
 	(document_id NUMBER(9),
         document_name VARCHAR(30) NOT NULL,
-	document_time TIMESTAMP NOT NULL,
+	document_time TIMESTAMP default systimestamp NOT NULL,
     	document_file VARCHAR(500) NOT NULL,
     	course_num NUMBER(3) NOT NULL,
 	dept VARCHAR(4) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE document
 GRANT SELECT ON document TO PUBLIC;
  
 CREATE TABLE ns_comment
-	(comment_time TIMESTAMP NOT NULL,
+	(comment_time TIMESTAMP default systimestamp NOT NULL,
 	text VARCHAR(2000) NOT NULL,
 	comment_id NUMBER(9),
 	email VARCHAR(40) NOT NULL,

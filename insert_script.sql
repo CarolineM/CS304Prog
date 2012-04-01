@@ -14,16 +14,21 @@ insert into course_is_in
 values('310', 'WIZARD SCIENCE', 'CPSC', 'UBC', 'W2', 2012);
 
 insert into document 
-values (123, 'My work', to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'),'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '317', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '317', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
 insert into document 
-values (126, 'Awesome Doc', to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'),'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '304', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '304', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
 
 insert into ns_comment
-values(to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'), 'Why does this only let us do twitter-length messages?','225', 'userlady@gmail.com', '304', 'CPSC', 'UBC', 'W2' , '2012');
+values(default, 'Why does this only let us do twitter-length messages?','225', 'userlady@gmail.com', '304', 'CPSC', 'UBC', 'W2' , '2012');
 insert into ns_comment
-values(to_date('1998/05/11:12:00:00', 'yyyy/mm/dd:hh:mi:ss'), 'Because it saves space in our database.', '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+values(default, 'Because it saves space in our database.', '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
 
 insert into comment_with_doc
 values('222', '123');
 insert into comment_with_doc
 values('225', '126');
+
+insert into ns_comment values(default, 'This is a comment!', '333', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+insert into comment_with_doc values('333', '126');
+
+select email, comment_time, text from ns_comment where comment_id in (select comment_id from comment_with_doc where document_id = 126) order by comment_time;
