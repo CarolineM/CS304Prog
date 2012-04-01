@@ -28,7 +28,7 @@ values('222', '123');
 insert into comment_with_doc
 values('225', '126');
 
-insert into ns_comment values(to_date('1998/05/11:12:00:33', 'yyyy/mm/dd:hh:mi:ss'), 'This is a comment!', '333', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+insert into ns_comment values(default, 'This is a comment!', '333', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
 insert into comment_with_doc values('333', '126');
 
 select email, comment_time, text from ns_comment where comment_id in (select comment_id from comment_with_doc where document_id = 126) order by comment_time;
