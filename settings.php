@@ -162,8 +162,10 @@
   <?php
   if (isset($_SESSION['pw_change_result'])) {
     echo "<b>" . $_SESSION['pw_change_result'] . "</b>";
+    unset($_SESSION['pw_change_result']);
   }
   ?>
+  <button class="btn-large" type="submit" onclick="location.href ='deleteuser.php';">Delete Your Account :(</button>
 
 
 
