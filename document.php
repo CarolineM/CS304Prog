@@ -1,6 +1,9 @@
 <?php
 	include("header.php");
 	$db_conn = OCILogon("ora_y8r7", "a28438109", "ug");
+	
+	
+	// Sets session variables if the correct information has been posted.
 	if(!empty($_POST['doc_id'])){
 	$_SESSION['doc_id'] = $_POST['doc_id'];
 	}
@@ -15,6 +18,7 @@
 	if(isset($_SESSION['email'])){
 	$email = $_SESSION['email'];
 	}
+	// Initialize comment ID at 1
 	$comm_id = 1;
 ?>
 
@@ -27,6 +31,7 @@
 		<form method = "POST" action = "document.php">
 		<select name="courseinfo">
 		<?php
+		// Query to return all the courses into a select box.
 			$query = "select course_num, dept, semester, tyear, institution from course_is_in";
 		if(!$db_conn){
 			echo "<p>This doesn't work</p>";
@@ -47,7 +52,7 @@
 				echo htmlentities($e['message']);
 				exit;
 				}
-
+			// Writes each course. The value is a CSV string, which we explode into an array after posting.
 			while($row = oci_fetch_array($parsed, OCI_NUM))
 			{
 				echo "<option value=" . $row[0] . ","  . $row[1] . ","  . $row[2] . ","  . $row[3] . ","  . $row[4] . "," .">" . $row[4] . " - " . $row[3] . " - " . $row[2] . " - " . $row[1] . " " . $row[0] . "</option>";
@@ -60,6 +65,7 @@
 		echo "</form>";
 		echo "</p>";
 
+		// If a course has been selected , it this loads the documents available for that course. 
 		if(isset($_SESSION['cnum'])){
 			$cnum = $_SESSION['cnum'];
 			$cdept = $_SESSION['cdept'];
@@ -100,14 +106,10 @@
 			echo "<input type=\"submit\" value=\"Load Document\"/>";
 			echo "</form>";
 			echo "</p>";
-			echo "<br />";
-			echo "<form method = \"POST\" action = \"document.php\">";
-			echo "<textarea name=\"comment\" cols=\"80\"></textarea>";
-			echo "<input name= \"submit\" type = \"submit\" value = \"Post Comment\"/>";
-			echo "</form>";
+
 		}
 		
-
+		// If the document has been selected, this embeds the document URL in the docs viewer, and populates the comment table ordered by timestamps.
 	if (isset($_SESSION['doc_id'])){
 		$docid = $_SESSION['doc_id'];
 		
@@ -139,6 +141,14 @@
 			{
 				echo "<iframe src=\"http://docs.google.com/gview?url=" . $row3[0] . "\" style=\"width:1000px; height:600px;\" frameborder=\"0\"></iframe>";
 			}	
+			echo "<br />";
+			echo "<br />";
+			echo "<h3>Comments!</h3>";
+			echo "<br />";
+			echo "<form method = \"POST\" action = \"document.php\">";
+			echo "<textarea name=\"comment\" cols=\"80\"></textarea>";
+			echo "<input name= \"submit\" type = \"submit\" value = \"Post Comment\"/>";
+			echo "</form>";
 			
 			$parsed4 = oci_parse($db_conn, $query4);
 			if (!$parsed4){
@@ -153,13 +163,13 @@
 				echo htmlentities($e4['message']);
 				exit;
 			}
-			echo "<h3>Comments!</h3>";
+
 			while($row4 = oci_fetch_array($parsed4, OCI_NUM))
 			{				 
 				echo "<br>" . $row4[0] . " commented at: " . $row4[1] . " - " . $row4[2] . "</br>";
 			}	
 
-			
+			// This part adds the the inputted comment to the database. It also displays it immediately, so a re-querty isn't needed.
 			if (!empty($_POST['comment'])){
 			   //find largest comment id
 				$cmdstr = "select max(comment_id) from ns_comment";
@@ -190,12 +200,12 @@
 				$comm_id += $row[0];
 
 			   }
+			   // Insert the comment into both of the required tables, using all the relevant data.
 				$doc_comment = $_POST['comment'];
 				$query5 = "insert into ns_comment values (default, '$doc_comment', '$comm_id', '$email', '$cnum', '$cdept', '$cinst', '$csem', '$cyear')";
 				$query6 = "insert into comment_with_doc values ('" . $comm_id . "', '" . $_SESSION['doc_id'] . "')";
 				echo "<br />";
-				echo "<p>$email commented at "; 
-				echo(date(DATE_RFC822)); 
+				echo "<p>$email commented just now"; 
 				echo " - $doc_comment</p>";
 				
 
