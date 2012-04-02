@@ -1,3 +1,4 @@
+<?php include("header.php"); ?>
 
 	<div class="container">
 
@@ -39,16 +40,21 @@
 		<tr>
 			<td>Other:</td>
 			<td>
-			<input type="checkbox" value="1" name="cdocs"><label>Course has documents.</label>
+			<input type="checkbox" value="1" name="cdocs"><label>Show # of documents.</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
-			<input input name="csearchsubmit" type="submit" value="Search" /></td>
+			<input name="csearchsubmit" type="submit" value="Search" /></td>
 		</tbody>
 		</table>
 		</form>
-
+		
+		<h2>Find duplicate usernames</h2>
+		<p>A nested-aggregate query.</p>
+		<form action="search_duplicate.php" method="post">
+		<input name="dupsearchsubmit" type="submit" value="Search" />
+		</form>
 	</div> <!-- /container -->
 
 <?php include("footer.php"); ?>

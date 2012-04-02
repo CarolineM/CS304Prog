@@ -100,5 +100,4 @@ $db_conn = OCILogon("ora_p1t7", "a36959104", "ug");
 		$e = OCI_Error(); // For OCILogon errors pass no handle
 		echo htmlentities($e['message']);
 	}
-
 ?>
