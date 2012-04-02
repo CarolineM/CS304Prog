@@ -4,10 +4,17 @@
 	if(!empty($_POST['doc_id'])){
 	$_SESSION['doc_id'] = $_POST['doc_id'];
 	}
-	if(!empty($_POST['cnum'])){
-	$_SESSION['cnum'] = $_POST['cnum'];
+	if(!empty($_POST['courseinfo'])){
+		$course_array = explode (",", $_POST['courseinfo']);
+		$_SESSION['cnum'] = $course_array[0];
+		$_SESSION['cdept'] = $course_array[1];
+		$_SESSION['csem'] = $course_array[2];
+		$_SESSION['cyear'] = $course_array[3];
+		$_SESSION['cinst'] = $course_array[4];
 	}
+	if(isset($_SESSION['email'])){
 	$email = $_SESSION['email'];
+	}
 	$comm_id = 1;
 ?>
 
@@ -18,13 +25,13 @@
 	
 	<p>Select a Course<br>
 		<form method = "POST" action = "document.php">
-		<select name="cnum">
+		<select name="courseinfo">
 		<?php
-			$query = "select course_num from course_is_in";
+			$query = "select course_num, dept, semester, tyear, institution from course_is_in";
 		if(!$db_conn){
 			echo "<p>This doesn't work</p>";
-		//	$e = oci_error();
-			//trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+			$e = oci_error();
+			trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 		}
 		else{
 			$parsed = oci_parse($db_conn, $query);
@@ -43,8 +50,8 @@
 
 			while($row = oci_fetch_array($parsed, OCI_NUM))
 			{
-				echo "<option value=" . $row[0] .">CPSC " . $row[0] . "</option>";
-			}	
+				echo "<option value=" . $row[0] . ","  . $row[1] . ","  . $row[2] . ","  . $row[3] . ","  . $row[4] . "," .">" . $row[4] . " - " . $row[3] . " - " . $row[2] . " - " . $row[1] . " " . $row[0] . "</option>";
+			}
 		}
 		
 		
@@ -55,14 +62,14 @@
 
 		if(isset($_SESSION['cnum'])){
 			$cnum = $_SESSION['cnum'];
-			echo "<form method = \"POST\" action=\"document.php\">";
+			$cdept = $_SESSION['cdept'];
+			$csem = $_SESSION['csem'];
+			$cinst = $_SESSION['cinst'];
+			$cyear = $_SESSION['cyear'];
+			echo "<form method = \"POST\" action=\"document.php\">";	
 			echo "Select a Document<br>";
 			echo "<select name=\"doc_id\">";
-			
-
-			
-
-				$query2 = "select document_id, document_name from document where course_num = " . $cnum;
+				$query2 = "select document_id, document_name from document where course_num = '" . $cnum . "' and dept = '" . $cdept . "' and semester = '" . $csem . "' and tyear = '" . $cyear . "' and institution = '" . $cinst . "'";
 			if(!$db_conn){
 				echo "<p>This doesn't work</p>";
 				$e2 = oci_error();
@@ -93,18 +100,19 @@
 			echo "<input type=\"submit\" value=\"Load Document\"/>";
 			echo "</form>";
 			echo "</p>";
+			echo "<br />";
+			echo "<form method = \"POST\" action = \"document.php\">";
+			echo "<textarea name=\"comment\" cols=\"80\"></textarea>";
+			echo "<input name= \"submit\" type = \"submit\" value = \"Post Comment\"/>";
+			echo "</form>";
 		}
 		
-
-
-
-
 
 	if (isset($_SESSION['doc_id'])){
 		$docid = $_SESSION['doc_id'];
 		
 		$query3 = "select document_file from document where document_id = " . $docid;
-		$query4 = "select email, comment_time, text from ns_comment where comment_id in (select comment_id from comment_with_doc where document_id = " . $docid . ") order by comment_time";
+		$query4 = "select email, comment_time, text from ns_comment where comment_id in (select comment_id from comment_with_doc where document_id = " . $docid . ") order by comment_time asc";
 		
 		
 		if(!$db_conn){
@@ -129,7 +137,7 @@
 			}
 			while($row3 = oci_fetch_array($parsed3, OCI_NUM))
 			{
-				echo "<iframe src=\"http://docs.google.com/gview?url=$row3[0]\" style=\"width:1000px; height:600px;\" frameborder=\"0\"></iframe>";
+				echo "<iframe src=\"http://docs.google.com/gview?url=" . $row3[0] . "\" style=\"width:1000px; height:600px;\" frameborder=\"0\"></iframe>";
 			}	
 			
 			$parsed4 = oci_parse($db_conn, $query4);
@@ -148,14 +156,9 @@
 			echo "<h3>Comments!</h3>";
 			while($row4 = oci_fetch_array($parsed4, OCI_NUM))
 			{				 
-				echo "<br>" . $row4[0] . " - " . $row4[2] . "</br>";
+				echo "<br>" . $row4[0] . " commented at: " . $row4[1] . " - " . $row4[2] . "</br>";
 			}	
-		
-		
-			echo "<form method = \"POST\" action = \"document.php\">";
-			echo "<textarea name=\"comment\" cols=\"80\">Insert document comments here...</textarea>";
-			echo "<input name= \"submit\" type = \"submit\" value = \"Post Comment\"/>";
-			echo "</form>";
+
 			
 			if (!empty($_POST['comment'])){
 			   //find largest comment id
@@ -185,11 +188,17 @@
 			   }
 			   else {
 				$comm_id += $row[0];
-				echo "<p>" . $comm_id . "</p>";
+
 			   }
 				$doc_comment = $_POST['comment'];
-				$query5 = "insert into ns_comment values (default, " . $doc_comment . ", '444', '" . $email .  "', '" . $_SESSION['cnum'] . "', 'CPSC', 'UBC', 'W2','2012')";
-				$query6 = "insert into comment_with_doc values ('444', '" . $_SESSION['doc_id'] . "')";
+				$query5 = "insert into ns_comment values (default, '$doc_comment', '$comm_id', '$email', '$cnum', '$cdept', '$cinst', '$csem', '$cyear')";
+				$query6 = "insert into comment_with_doc values ('" . $comm_id . "', '" . $_SESSION['doc_id'] . "')";
+				echo "<br />";
+				echo "<p>$email commented at "; 
+				echo(date(DATE_RFC822)); 
+				echo " - $doc_comment</p>";
+				
+
 				if(!$db_conn){
 					echo "<p>This doesn't work</p>";
 					$e5 = oci_error();
@@ -197,111 +206,41 @@
 				}
 				else{
 					$parsed5 = oci_parse($db_conn, $query5);
-					$parsed6 = oci_parse($db_conn, $query6);
-					if (!$parsed5 && !$parsed6){
+					
+					if (!$parsed5){
 						$e5 = OCIError($db_conn);  
 						echo htmlentities($e5['message']); 
 						exit;
 					}
-					
+				
 					$r5=OCIExecute($parsed5, OCI_DEFAULT); 
-					$r6=OCIExecute($parsed6, OCI_DEFAULT); 
-					if (!$r5 && !$r6){
+					if (!$r5){
 						$e5 = oci_error($parsed5); 
 						echo htmlentities($e5['message']);
 						exit;
 					}
+						$parsed6 = oci_parse($db_conn, $query6);
+					if (!$parsed6){
+						$e6 = OCIError($db_conn);  
+						echo htmlentities($e6['message']); 
+						exit;
+					}
+					$r6=OCIExecute($parsed6, OCI_DEFAULT); 
+					if (!$r6){
+						$e6 = oci_error($parsed6); 
+						echo htmlentities($e6['message']);
+						exit;
+					}
+					OCICommit($db_conn);
 
 				}
 							
 			}
 		}
-		
-		/*
-		$comm_submit = $_POST['submit'];
-			if($comm_submit){
-			$doc_comment = $_POST['comment'];
-			echo "<p>"$doc_comment"</p>";
-			}
-			*/
-	}
-	
-	
-			
-	/*if (!empty($docid)){
-		$doc_comment = $_POST['comment'];
-		if (!empty($doc_comment)){
-			echo "<p>"$doc_comment"</p>";
-		}
-	}
-	*/
-	/*
-	if (!empty($doc_comment){
-		$query5 = "insert into ns_comment values(to_date(\"1999/12/12:12:12:12\"), 'yyyy/mm/dd:hh:mi:ss'), $doc_comment, to_date(\"1999/12/12:12:12:12\"), 'userguy@gmail.com', $cnum, 'CPSC', 'UBC', 'W2','2012');"
-		$query6 = "insert into comment_with_doc values(to_date(\"1999/12/12:12:12:12\")," .  $docid);
-		
-		if(!$db_conn){
-			echo "<p>This doesn't work</p>";
-			$e5 = oci_error();
-			trigger_error(htmlentities($e5['message'], ENT_QUOTES), E_USER_ERROR);
-		}
-		else{
-			$parsed5 = oci_parse($db_conn, $query5);
-			$parsed6 = oci_parse($db_conn, $query6);
-			if (!$parsed5 && !$parsed6){
-				$e5 = OCIError($db_conn);  
-				echo htmlentities($e5['message']); 
-				exit;
-			}
-			
-			$r5=OCIExecute($parsed5, OCI_DEFAULT); 
-			$r6=OCIExecute($parsed6, OCI_DEFAULT); 
-			if (!$r5 && !$r6){
-				$e5 = oci_error($parsed5); 
-				echo htmlentities($e5['message']);
-				exit;
-			}
 
-		}
 	}
-	*/
 
-
-	
-	
 	?>
-	
-	
-	
-	 <!--	  
-	SUBMIT COMMENT
-	
-	TIMESTAMP		
-		var $timestamp = date(DATE_RFC822);
-		date_format($timestamp, 'yyyy/mm/dd:hh:mi:ss'); 
-		
-	SUBMIT COMMENT QUERY
-		insert into ns_comment
-			values(to_date($timestamp, 'yyyy/mm/dd:hh:mi:ss'), (comment from text area comment), '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', 
-'2012');
-		
-		insert into comment_with_doc
-			values('222', '123');
-				
-		
-	RETRIEVE COMMENTS ON A PARTICULAR DOCUMENT
-		select text from ns_comment where comment_id = (select comment_id from comment_with_doc where document_id = (var for doc id here);
-	  
-	RETRIEVE COURSE NUMBERS FOR LIST
-		select course_num from course_is_in;
-		
-	RETRIEVE DOCUMENTS IN A COURSE(from list)
-		select document_id from document where course_num = (var from course number table);
-		
-	RETRIEVE DOCUMENT GIVEN DOC NAME (we have to add document name)
-		select document_id from document where doc_name = (doc name from table);
-		this needs more for unique
-	  -->
 	  
 
     </div> <!-- /container -->
