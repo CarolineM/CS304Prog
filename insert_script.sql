@@ -2,6 +2,7 @@ insert into noteshare_user
 values('mr user', 'userguy@gmail.com', 'N', 'qwerty');
 insert into noteshare_user 
 values('dr user', 'userlady@gmail.com', 'Y', 'p455w0rd');
+insert into noteshare_user values('mr user', 'dupuserguy@gmail.com', 'N', 'qwerty');
 
 insert into term
 values('W2', '2012'); 
@@ -22,6 +23,14 @@ insert into ns_comment
 values(default, 'Why does this only let us do twitter-length messages?','225', 'userlady@gmail.com', '304', 'CPSC', 'UBC', 'W2' , '2012');
 insert into ns_comment
 values(default, 'Because it saves space in our database.', '222', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+insert into ns_comment
+values(default, 'Because it saves space in our database??', '234', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+insert into ns_comment
+values(default, 'This is a course comment in 304.', '228', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+insert into ns_comment
+values(default, 'This is a course comment in 317.', '230', 'userguy@gmail.com', '317', 'CPSC', 'UBC', 'W2', '2012');
+insert into ns_comment
+values(default, 'This is a course comment in 310.', '232', 'userguy@gmail.com', '310', 'CPSC', 'UBC', 'W2', '2012');
 
 insert into comment_with_doc
 values('222', '123');
