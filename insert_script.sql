@@ -1,23 +1,33 @@
-insert into noteshare_user 
-values('mr user', 'userguy@gmail.com', 'N', 'qwerty');
-insert into noteshare_user 
-values('dr user', 'userlady@gmail.com', 'Y', 'p455w0rd');
-insert into noteshare_user values('mr user', 'dupuserguy@gmail.com', 'N', 'qwerty');
+insert into noteshare_user values('mr user', 'userguy@gmail.com', 'N', 'qwerty');
+insert into noteshare_user values('dr user', 'userlady@gmail.com', 'Y', 'p455w0rd');
+insert into noteshare_user values('awesome user', 'dupuserguy@gmail.com', 'N', 'password');
+insert into noteshare_user values('dr talent', 'user@mail.com', 'Y', 'password');
 
 insert into term
-values('W2', '2012'); 
+values('W2', '2012');
+values('W1', '2012');
+values('W3', '2012');
+values('W4', '2012');
 
-insert into course_is_in
-values('304', 'DATABAAASE', 'CPSC', 'UBC', 'W2', 2012);
-insert into course_is_in
-values('317', 'INTERNETS', 'CPSC', 'UBC', 'W2', 2012);
-insert into course_is_in
-values('310', 'WIZARD SCIENCE', 'CPSC', 'UBC', 'W2', 2012);
+insert into course_is_in values('304', 'DATABAAASE', 'CPSC', 'UBC', 'W2', 2012);
+insert into course_is_in values('317', 'INTERNETS', 'CPSC', 'UBC', 'W2', 2012);
+insert into course_is_in values('310', 'WIZARD SCIENCE', 'CPSC', 'UBC', 'W2', 2012);
+insert into course_is_in values('312', 'BORING CLASS', 'CPSC', 'UBC', 'W2', 2012);
+insert into course_is_in values('316', 'CAROLINE', 'CPSC', 'UBC', 'W2', 2012);
+insert into course_is_in values('314', 'A CLASS', 'CPSC', 'UBC', 'W2', 2012);
 
-insert into document 
-values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '317', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
-insert into document 
-values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '304', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '317', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '304', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '310', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '312', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '316', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '314', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '317', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '304', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '310', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '312', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (123, 'My work', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '316', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
+insert into document values (126, 'Awesome Doc', default, 'http://www.ugrad.cs.ubc.ca/~cs304/2011W2/notes/Chapter1-intro-2up.pdf', '314', 'CPSC', 'UBC', 'W2', 2012, 'userguy@gmail.com');
 
 insert into ns_comment
 values(default, 'Why does this only let us do twitter-length messages?','225', 'userlady@gmail.com', '304', 'CPSC', 'UBC', 'W2' , '2012');
