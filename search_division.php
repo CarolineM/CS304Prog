@@ -55,8 +55,8 @@
 					echo "<h3>Results</h3>";
 					echo "<table width=\"100%\" border=\"1\">";
 					echo "<tr>
-							<th>Count</th>
 							<th>User Name</th>
+							<th>User Email</th>
 						</tr>";
 					while($row = oci_fetch_array($parse, OCI_NUM)) {
 						echo "<tr>
