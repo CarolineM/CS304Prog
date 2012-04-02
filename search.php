@@ -38,16 +38,16 @@
 			<input type="number" name="cyear"></td>
 		</tr>
 		<tr>
-			<td>Other:</td>
-			<td>
-			<input type="checkbox" value="1" name="cdocs"><label>Show # of documents.</label>
-			</td>
-		</tr>
-		<tr>
 			<td>
 			<input name="csearchsubmit" type="submit" value="Search" /></td>
 		</tbody>
 		</table>
+		</form>
+		
+		<h2>Find Users who have commented in all Documents</h2>
+		<p>A division query.</p>
+		<form action="search_division.php" method="post">
+		<input name="divsearchsubmit" type="submit" value="Search" />
 		</form>
 		
 		<h2>Find duplicate usernames</h2>

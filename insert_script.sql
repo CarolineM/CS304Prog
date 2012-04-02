@@ -26,16 +26,20 @@ values(default, 'Because it saves space in our database.', '222', 'userguy@gmail
 insert into ns_comment
 values(default, 'Because it saves space in our database??', '234', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
 insert into ns_comment
-values(default, 'This is a course comment in 304.', '228', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
+values(default, 'This is a comment in doc 123', '228', 'dupuserguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
 insert into ns_comment
-values(default, 'This is a course comment in 317.', '230', 'userguy@gmail.com', '317', 'CPSC', 'UBC', 'W2', '2012');
+values(default, 'This is a comment in doc 123.', '230', 'dupuserguy@gmail.com', '317', 'CPSC', 'UBC', 'W2', '2012');
 insert into ns_comment
-values(default, 'This is a course comment in 310.', '232', 'userguy@gmail.com', '310', 'CPSC', 'UBC', 'W2', '2012');
+values(default, 'This is a course comment in 310.', '232', 'dupuserguy@gmail.com', '310', 'CPSC', 'UBC', 'W2', '2012');
 
 insert into comment_with_doc
 values('222', '123');
 insert into comment_with_doc
 values('225', '126');
+insert into comment_with_doc
+values('228', '123');
+insert into comment_with_doc
+values('230', '123');
 
 insert into ns_comment values(default, 'This is a comment!', '333', 'userguy@gmail.com', '304', 'CPSC', 'UBC', 'W2', '2012');
 insert into comment_with_doc values('333', '126');
