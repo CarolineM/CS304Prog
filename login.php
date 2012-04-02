@@ -8,6 +8,12 @@
          <p><h3>Email</h3><input type="text" name="email" size="6"/></p>
          <p><h3>Password</h3><input type="password" name="password" size="18"/></p>
          <p><input class="btn-large" type="submit" value="submit" name="insertsubmit"></p>
+         <?php
+             if(isset($_SESSION['valid_res'])){
+              echo $_SESSION['valid_res'];
+              unset($_SESSION['valid_res']);
+             }
+             ?>
       </form>
       <button class="btn-large" type="submit" onclick="location.href ='signup.php';"> Need An Account?</button>
       </div>

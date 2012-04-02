@@ -3,6 +3,11 @@
 	<div class="container">
 		<h1>Add a course to the DB</h1>
 		<p>Can be accessed from the search view</p>
+=======
+<?php include("header.php"); ?>	
+        
+        <div class="container">
+		<h1>Add a course to the Database</h1>
 		<form action="add_course_sql.php" method="post">
 		<table>
 		<tbody>
@@ -42,6 +47,12 @@
 		</tbody>
 		</table>
 		</form>
+                <?php
+                if (isset($_SESSION['insert_course_err'])) {
+                echo $_SESSION['insert_course_err'];
+                unset($_SESSION['insert_course_err'] );
+                }
+                ?>
     </div> <!-- /container -->
 
 <?php include("footer.php"); ?>

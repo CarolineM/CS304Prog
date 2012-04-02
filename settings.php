@@ -35,7 +35,6 @@
        $_SESSION['doc0'] = "No documents posted.";
        $areDocuments = FALSE;
    }
-   else {
     //echo document table
     echo '<h3>Your Documents</h3>';
     echo "<table width=\"100%\" border=\"1\">";
@@ -46,8 +45,9 @@
         <th>Department</th>
         <th>Course Number</th>
         <th>TimeStamp</th>
+        <th>Delete?</th>
         <tr>";
-        
+    if (!empty($row)) {    
     echo "<tr>
           <td bgcolor=\"#COCOCO\">" . $row[0] . "</td>
           <td bgcolor=\"#COCOCO\">" . $row[1] . "</td>
@@ -55,7 +55,9 @@
           <td bgcolor=\"#COCOCO\">" . $row[3] . "</td>
           <td bgcolor=\"#COCOCO\">" . $row[4] . "</td>
           <td bgcolor=\"#COCOCO\">" . $row[5] . "</td>
-          <td bgcolor=\"#COCOCO\">" . $row[6] . "</td>
+           <td bgcolor=\"#COCOCO\"> <form name='delete_form' action='deletedoc.php' method='POST'>
+          <input type='hidden' name='dotodelete' value='$row[0]'>
+         <button class=\"btn-small\" type=\"submit\">Delete</button><form></td>
         </tr>";
     while ($row = OCI_Fetch_Array($parsed, OCI_NUM)) {
     echo "<tr>
@@ -65,10 +67,17 @@
           <td bgcolor=\"#COCOCO\">" . $row[3] . "</td>
           <td bgcolor=\"#COCOCO\">" . $row[4] . "</td>
           <td bgcolor=\"#COCOCO\">" . $row[5] . "</td>
-          <td bgcolor=\"#COCOCO\">" . $row[6] . "</td>
+          <td bgcolor=\"#COCOCO\"> <form name='delete_form' action='deletedoc.php' method='POST'>
+          <input type='hidden' name='dotodelete' value='$row[0]'>
+         <button class=\"btn-small\" type=\"submit\">Delete</button><form></td>
         </tr>";
     }
+    }
     echo "</table>";
+     if (isset($_SESSION["deldocres"] )) {
+        echo  $_SESSION["deldocres"];
+        unset( $_SESSION["deldocres"] );
+     }
    
           //user comments
           $cmdstr = "select comment_id, text, comment_time from ns_comment where email = '$email'";
@@ -95,13 +104,17 @@
            <th>ID</th>
            <th>Text</th>
            <th>Time</th>
+           <th>Delete?</th>
            <tr>";
        while ($row = OCI_Fetch_Array($parsed, OCI_NUM)) {
        echo "<tr>
             <td bgcolor=\"#COCOCO\">" . $row[0] . "</td>
             <td bgcolor=\"#COCOCO\">" . $row[1] . "</td>
             <td bgcolor=\"#COCOCO\">" . $row[2] . "</td>
-          </tr>";
+            <td bgcolor=\"#COCOCO\"> <form name='delete_form' action='deletecomment.php' method='POST'>
+          <input type='hidden' name='comtodelete' value='$row[0]'>
+         <button class=\"btn-small\" type=\"submit\">Delete</button><form></td>
+        </tr>";
       }
       echo "</table>";
    }
@@ -141,7 +154,7 @@
           </tr>";
       }
       echo "</table>";
-   }
+
    //logoff
     OCILogoff($db_conn);
   }
@@ -158,12 +171,15 @@
          <p><h3>Old Password</h3><input type="password" name="old_password" size="18"/></p>
          <p><h3>New Password</h3><input type="password" name="new_password" size="18"/></p>
          <p><input class="btn-large" type="submit" value="submit" name="insertsubmit"></p>
-    </form>
-  <?php
+           <?php
   if (isset($_SESSION['pw_change_result'])) {
     echo "<b>" . $_SESSION['pw_change_result'] . "</b>";
+    unset($_SESSION['pw_change_result']);
   }
   ?>
+    </form>
+  <button class="btn-large" type="submit" onclick="location.href ='deleteuser.php';">Delete Your Account :(</button></br>
+  
 
 
 
