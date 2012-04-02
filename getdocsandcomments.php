@@ -6,7 +6,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     $course = $_SESSION[('courseselect' . (string)$_POST['courseSelect'])];
     
         //insert any comments 
-    if (isset($_POST['comment'])) {
+    if (!empty($_POST['comment'])) {
     $comment = $_POST['comment'];
     $commentId = 1;
     $email = $_SESSION['email'];

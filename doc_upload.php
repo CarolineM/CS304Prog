@@ -50,6 +50,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")){
 	<?php
         if(isset($_SESSION['insert_document_result'])) {
           echo($_SESSION['insert_document_result'] );
+          unset($_SESSION['insert_document_result'] );
         }
         
         ?>
