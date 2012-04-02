@@ -4,6 +4,8 @@ insert into noteshare_user values('awesome user', 'dupuserguy@gmail.com', 'N', '
 insert into noteshare_user values('awesome user', 'duplicate.com', 'N', 'password');
 insert into noteshare_user values('dr talent', 'user@mail.com', 'Y', 'password');
 
+
+
 insert into term values('W2', 2012);
 
 insert into course_is_in values('304', 'DATABAAASE', 'CPSC', 'UBC', 'W2', 2012);

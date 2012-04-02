@@ -1,8 +1,6 @@
 <?php include("header.php"); ?>
 <div class="container">
 <?php
- session_start();
-=======
 //search against course
 $cname=$_POST['cname'];
 $cnumb=$_POST['cnumb'];
