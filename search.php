@@ -43,6 +43,12 @@
 		</tbody>
 		</table>
 		</form>
+		<?php
+                if (isset($_SESSION['insert_course_err'])) {
+                echo $_SESSION['insert_course_err'];
+                unset($_SESSION['insert_course_err'] );
+                }
+        ?>
 		
 		<h2>Find Users who have commented in all Documents</h2>
 		<p>A division query.</p>
