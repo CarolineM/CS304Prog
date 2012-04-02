@@ -1,9 +1,6 @@
 <?php
 	include("header.php");
-	$db_conn = OCILogon("ora_y8r7", "a28438109", "ug");
-	
-	
-	// Sets session variables if the correct information has been posted.
+	$db_conn = OCILogon("ora_p1t7", "a36959104", "ug");
 	if(!empty($_POST['doc_id'])){
 	$_SESSION['doc_id'] = $_POST['doc_id'];
 	}

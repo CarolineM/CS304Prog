@@ -1,4 +1,5 @@
 <?php
+//inserts document into the database
 session_start();
 if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     $email = $_SESSION['email'];
@@ -14,16 +15,16 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     $parsed = OCIParse($db_conn, $cmdstr); // parse the statement
    if (!$parsed){
       $e = OCIError($db_conn);  
-      echo htmlentities($e['message']);
-      echo "exiting...";
+      $_SESSION['insert_document_result'] =  htmlentities($e['message']);
+      header("location:doc_upload.php");
       exit;
    }
 
    $r=OCIExecute($parsed, OCI_DEFAULT); 
     if (!$r){
       $e = oci_error($parsed); 
-      echo htmlentities($e['message']);
-      echo "exiting...";
+      $_SESSION['insert_document_result'] =  htmlentities($e['message']);
+      header("location:doc_upload.php");
       exit;
    }
    
@@ -44,16 +45,16 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
    $parsed = OCIParse($db_conn, $cmdstr); // parse the statement
    if (!$parsed){
       $e = OCIError($db_conn);  
-      echo htmlentities($e['message']);
-      echo "exiting...";
+      $_SESSION['insert_document_result'] =  htmlentities($e['message']);
+      header("location:doc_upload.php");
       exit;
    }
 
    $r=OCIExecute($parsed, OCI_DEFAULT); 
     if (!$r){
       $e = oci_error($parsed); 
-      echo htmlentities($e['message']);
-      echo "exiting...";
+      $_SESSION['insert_document_result'] =  htmlentities($e['message']);
+      header("location:doc_upload.php");
       exit;
    } 
   OCICommit($db_conn);
@@ -65,24 +66,27 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
    $parsed = OCIParse($db_conn, $cmdstr);
    if (!$parsed){
       $e = OCIError($db_conn);  
-      echo htmlentities($e['message']); 
+      $_SESSION['insert_document_result'] =  htmlentities($e['message']);
+      header("location:doc_upload.php");
       exit;
    }
 
    $r=OCIExecute($parsed, OCI_DEFAULT); 
     if (!$r){
       $e = oci_error($parsed); 
-      echo htmlentities($e['message']);
+      $_SESSION['insert_document_result'] =  htmlentities($e['message']);
+      header("location:doc_upload.php");
       exit;
    }  
    
    $row = OCI_Fetch_Array($parsed, OCI_NUM);
    if (empty($row)) {
-    echo $_SESSION['insert_document_result'] = "Fail";
+    $_SESSION['insert_document_result'] = "Fail";
+    header("location:doc_upload.php");
    }
 
     OCILogoff($db_conn);
-    echo $_SESSION['insert_document_result'] = "Success!";
+    $_SESSION['insert_document_result'] = "Success!";
     header("location:doc_upload.php");
     
 }

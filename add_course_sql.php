@@ -1,4 +1,5 @@
 <?php
+//inserts courses into the database
  session_start();
 $cname=$_POST['cname'];
 $cnumb=$_POST['cnumb'];

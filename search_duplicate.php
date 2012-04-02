@@ -1,7 +1,9 @@
 <?php include("header.php"); ?>
 <div class="container">
 <?php
-$db_conn = OCILogon("ora_n2f7", "a46785093", "ug");
+//search results page
+//aggregate nested query
+$db_conn = OCILogon("ora_p1t7", "a36959104", "ug");
 $selectquery = "select count(*), username from noteshare_user ns where 1 < (select count(*) from noteshare_user ns2 where ns.username = ns2.username) group by username";
 $parse = OCIParse($db_conn, $selectquery);
 echo "Your query: " . $selectquery . "<br>";

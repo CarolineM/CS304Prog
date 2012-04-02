@@ -1,4 +1,5 @@
 <?php
+//returns docs and comments connected to a course
 session_start();
 if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     
@@ -18,7 +19,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
    if (!$parsed){
       $e = OCIError($db_conn);  
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    }
 
@@ -26,7 +27,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     if (!$r){
       $e = oci_error($parsed); 
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    }
    
@@ -34,7 +35,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     if (empty($row)) {
       $_SESSION['gd_error'] = "Internal server error";
       OCILogoff($db_conn);
-      header('Location: course.php');
+      header('Location:noteshare.php');
    }
    else {
     $commentId += $row[0];
@@ -46,7 +47,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
    if (!$parsed){
       $e = OCIError($db_conn);  
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    }
 
@@ -54,7 +55,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")) {
     if (!$r){
       $e = oci_error($parsed); 
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    } 
   OCICommit($db_conn);
@@ -68,7 +69,7 @@ $cmdstr = "select document_id,  document_name, document_time, email from documen
    if (!$parsed){
       $e = OCIError($db_conn);  
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    }
 
@@ -76,7 +77,7 @@ $cmdstr = "select document_id,  document_name, document_time, email from documen
     if (!$r){
       $e = oci_error($parsed); 
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    } 
   OCICommit($db_conn);
@@ -94,7 +95,7 @@ $cmdstr = "select document_id,  document_name, document_time, email from documen
    if (!$parsed){
       $e = OCIError($db_conn);  
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    }
 
@@ -102,7 +103,7 @@ $cmdstr = "select document_id,  document_name, document_time, email from documen
     if (!$r){
       $e = oci_error($parsed); 
       $_SESSION['gd_error'] = htmlentities($e['message']);
-      header('Location:course.php');
+      header('Location:noteshare.php');
       exit;
    } 
   OCICommit($db_conn);
@@ -114,7 +115,7 @@ $cmdstr = "select document_id,  document_name, document_time, email from documen
         $i++;
     }
     
-    header('Location:course.php');
+    header('Location:noteshare.php');
     
     
 

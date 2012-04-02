@@ -2,13 +2,15 @@
 <div class="container">
 <?php
  session_start();
+=======
+//search against course
 $cname=$_POST['cname'];
 $cnumb=$_POST['cnumb'];
 $cdept=$_POST['cdept'];
 $cinst=$_POST['cinst'];
 $cterm=$_POST['cterm'];
 $cyear=$_POST['cyear'];
-$db_conn = OCILogon("ora_n2f7", "a46785093", "ug");
+$db_conn = OCILogon("ora_p1t7", "a36959104", "ug");
 
 //check variables valid
    if (is_numeric($cname)) {
