@@ -15,6 +15,7 @@
 	if(isset($_SESSION['email'])){
 	$email = $_SESSION['email'];
 	}
+	// Initialize comment ID at 1
 	$comm_id = 1;
 ?>
 
@@ -27,6 +28,7 @@
 		<form method = "POST" action = "document.php">
 		<select name="courseinfo">
 		<?php
+		// Query to return all the courses into a select box.
 			$query = "select course_num, dept, semester, tyear, institution from course_is_in";
 		if(!$db_conn){
 			echo "<p>This doesn't work</p>";
@@ -47,7 +49,7 @@
 				echo htmlentities($e['message']);
 				exit;
 				}
-
+			// Writes each course. The value is a CSV string, which we explode into an array after posting.
 			while($row = oci_fetch_array($parsed, OCI_NUM))
 			{
 				echo "<option value=" . $row[0] . ","  . $row[1] . ","  . $row[2] . ","  . $row[3] . ","  . $row[4] . "," .">" . $row[4] . " - " . $row[3] . " - " . $row[2] . " - " . $row[1] . " " . $row[0] . "</option>";
@@ -60,6 +62,7 @@
 		echo "</form>";
 		echo "</p>";
 
+		// If a course has been selected , it this loads the documents available for that course. 
 		if(isset($_SESSION['cnum'])){
 			$cnum = $_SESSION['cnum'];
 			$cdept = $_SESSION['cdept'];
@@ -103,7 +106,7 @@
 
 		}
 		
-
+		// If the document has been selected, this embeds the document URL in the docs viewer, and populates the comment table ordered by timestamps.
 	if (isset($_SESSION['doc_id'])){
 		$docid = $_SESSION['doc_id'];
 		
@@ -163,7 +166,7 @@
 				echo "<br>" . $row4[0] . " commented at: " . $row4[1] . " - " . $row4[2] . "</br>";
 			}	
 
-			
+			// This part adds the the inputted comment to the database. It also displays it immediately, so a re-querty isn't needed.
 			if (!empty($_POST['comment'])){
 			   //find largest comment id
 				$cmdstr = "select max(comment_id) from ns_comment";
@@ -194,6 +197,7 @@
 				$comm_id += $row[0];
 
 			   }
+			   // Insert the comment into both of the required tables, using all the relevant data.
 				$doc_comment = $_POST['comment'];
 				$query5 = "insert into ns_comment values (default, '$doc_comment', '$comm_id', '$email', '$cnum', '$cdept', '$cinst', '$csem', '$cyear')";
 				$query6 = "insert into comment_with_doc values ('" . $comm_id . "', '" . $_SESSION['doc_id'] . "')";
