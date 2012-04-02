@@ -100,11 +100,7 @@
 			echo "<input type=\"submit\" value=\"Load Document\"/>";
 			echo "</form>";
 			echo "</p>";
-			echo "<br />";
-			echo "<form method = \"POST\" action = \"document.php\">";
-			echo "<textarea name=\"comment\" cols=\"80\"></textarea>";
-			echo "<input name= \"submit\" type = \"submit\" value = \"Post Comment\"/>";
-			echo "</form>";
+
 		}
 		
 
@@ -139,6 +135,14 @@
 			{
 				echo "<iframe src=\"http://docs.google.com/gview?url=" . $row3[0] . "\" style=\"width:1000px; height:600px;\" frameborder=\"0\"></iframe>";
 			}	
+			echo "<br />";
+			echo "<br />";
+			echo "<h3>Comments!</h3>";
+			echo "<br />";
+			echo "<form method = \"POST\" action = \"document.php\">";
+			echo "<textarea name=\"comment\" cols=\"80\"></textarea>";
+			echo "<input name= \"submit\" type = \"submit\" value = \"Post Comment\"/>";
+			echo "</form>";
 			
 			$parsed4 = oci_parse($db_conn, $query4);
 			if (!$parsed4){
@@ -153,7 +157,7 @@
 				echo htmlentities($e4['message']);
 				exit;
 			}
-			echo "<h3>Comments!</h3>";
+
 			while($row4 = oci_fetch_array($parsed4, OCI_NUM))
 			{				 
 				echo "<br>" . $row4[0] . " commented at: " . $row4[1] . " - " . $row4[2] . "</br>";
@@ -194,8 +198,7 @@
 				$query5 = "insert into ns_comment values (default, '$doc_comment', '$comm_id', '$email', '$cnum', '$cdept', '$cinst', '$csem', '$cyear')";
 				$query6 = "insert into comment_with_doc values ('" . $comm_id . "', '" . $_SESSION['doc_id'] . "')";
 				echo "<br />";
-				echo "<p>$email commented at "; 
-				echo(date(DATE_RFC822)); 
+				echo "<p>$email commented just now"; 
 				echo " - $doc_comment</p>";
 				
 
