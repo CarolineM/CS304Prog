@@ -37,7 +37,7 @@ if ($db_conn=OCILogon("ora_p1t7", "a36959104", "ug")){
 
 ?>
   </select>
-      <p>Insert document comments here:</p>         
+      <p>Insert course comments here:</p>         
       <p><textarea name="comment" cols="100"></textarea></p> 
       <p><input class="btn-large" type="submit" value="submit" name="insertsubmit"></p>
       </form>
