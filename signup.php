@@ -34,6 +34,12 @@
                     </td>
                 </tr>
               </table>
+              <?php
+              if (isset($_SESSION['sign_err'])) {
+                echo  $_SESSION['sign_err'];
+                unset( $_SESSION['sign_err'] );
+              }
+              ?>
     
     </div> <!-- /container -->
 

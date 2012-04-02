@@ -43,12 +43,10 @@ session_start();
           <a class="brand" href="#">Course Notes Share</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="noteshare.php">Home</a></li>
-              <li><a href="course.php">Course</a></li>
+              <li><a href="noteshare.php">Home</a></li>
               <li><a href="search.php">Search</a></li>
               <li><a href="add_course.php">Add Course</a></li>
               <li><a href="document.php">Document</a></li>
-              <li><a href="comments.php">Comments</a></li>
               <li><a href="doc_upload.php">Document Upload</a></li>
             </ul>
             <p class="navbar-text pull-right">
